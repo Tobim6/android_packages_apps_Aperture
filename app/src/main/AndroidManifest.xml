@@ -71,7 +71,7 @@
         <!-- No android.intent.category.LAUNCHER: Aperture is kept installed as the
              preferred handler for IMAGE_CAPTURE/VIDEO_CAPTURE delegated from other
              apps (see the preferred-apps config), but is not meant to be opened
-             directly -- BSG GCam is the standalone, home-screen-visible camera app. -->
+             directly. BSG GCam is the standalone, home-screen-visible camera app. -->
         <activity-alias
             android:name=".CameraLauncher"
             android:exported="true"
