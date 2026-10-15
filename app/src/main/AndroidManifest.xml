@@ -68,10 +68,13 @@
             </intent-filter>
         </activity>
 
-        <!-- No android.intent.category.LAUNCHER: Aperture is kept installed as the
-             preferred handler for IMAGE_CAPTURE/VIDEO_CAPTURE delegated from other
-             apps (see the preferred-apps config), but is not meant to be opened
-             directly. BSG GCam is the standalone, home-screen-visible camera app. -->
+        <!-- Keeps android.intent.category.LAUNCHER despite Aperture mainly being
+             the preferred handler for delegated IMAGE_CAPTURE/VIDEO_CAPTURE now
+             (see the preferred-apps config) rather than a standalone app: removing
+             it broke CameraActivity.onCreate()'s ShortcutManager.setDynamicShortcuts()
+             call, which requires a resolvable MAIN/LAUNCHER activity to anchor
+             shortcuts to; without one, ShortcutService.fillInDefaultActivity()
+             throws, crashing every Aperture activity launch, not just the icon. -->
         <activity-alias
             android:name=".CameraLauncher"
             android:exported="true"
@@ -81,6 +84,7 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
 
